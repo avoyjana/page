@@ -3,53 +3,493 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Viewer</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <title>Gaussian Functions and Wave Packets - LaTeX Document</title>
+    
+    <!-- MathJax configuration -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                packages: {'[+]': ['ams', 'amssymb', 'physics']}
+            },
+            svg: {
+                fontCache: 'global'
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    
+    <!-- Load MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    
     <style>
-        #viewer {
-            width: 100vw;
-            height: 100vh;
-            background: #f0f0f0;
-            overflow: auto;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        canvas {
-            display: block;
+        
+        body {
+            font-family: 'Segoe UI', 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
             margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .content {
+            padding: 40px 50px;
+        }
+        
+        h1 {
+            font-size: 2.2em;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            font-size: 1.6em;
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .equation {
+            margin: 20px 0;
+            overflow-x: auto;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .equation:hover {
+            background: #e8f4f8;
+            transform: translateX(5px);
+        }
+        
+        .inline-math {
+            background: #f0f2f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        
+        .note {
+            background: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-style: italic;
+        }
+        
+        hr {
+            margin: 30px 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(to right, #3498db, transparent);
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            h2 {
+                font-size: 1.4em;
+            }
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #3498db;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2980b9;
+        }
+        
+        .math-display {
+            font-size: 1.05em;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #2c3e50;
+            color: white;
+            font-size: 0.9em;
+        }
+        
+        .footer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
-<body oncontextmenu="return false">
-    <div id="viewer"></div>
-
-    <script>
-        const url = 'avoy.pdf'; // Path to your PDF file
-        const viewer = document.getElementById('viewer');
-
-        const renderPDF = async (url) => {
-            const pdf = await pdfjsLib.getDocument(url).promise;
-
-            for (let i = 1; i <= pdf.numPages; i++) {
-                const page = await pdf.getPage(i);
-                const viewport = page.getViewport({ scale: 1.5 });
-
-                const canvas = document.createElement('canvas');
-                const context = canvas.getContext('2d');
-                canvas.width = viewport.width;
-                canvas.height = viewport.height;
-
-                await page.render({ canvasContext: context, viewport }).promise;
-                viewer.appendChild(canvas);
-            }
-        };
-
-        renderPDF(url);
-
-        // Disable common shortcuts
-        document.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey && (e.key === 's' || e.key === 'p')) || e.key === 'F12') {
-                e.preventDefault();
-            }
-        });
-    </script>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1>Gaussian Functions and Quantum Mechanics</h1>
+            
+            <div class="section">
+                <h2>Gaussian Function</h2>
+                <div class="equation">
+                    $$f(x) = e^{-x^2}$$
+                </div>
+                
+                <p><strong>Two important uses:</strong></p>
+                
+                <div class="equation">
+                    $$\mathrm{erf}(x) = \frac{2}{\sqrt{\pi}} \int_0^x e^{-z^2} dz$$
+                </div>
+                
+                <div class="equation">
+                    $$\delta(x) = \lim_{\epsilon \to 0} \eta_\epsilon(x), \quad \eta_\epsilon(x) = \frac{1}{\sqrt{2\pi}\epsilon} e^{-x^2/2\epsilon^2}$$
+                </div>
+                
+                <p><strong>Heat/Diffusion kernel</strong></p>
+            </div>
+            
+            <div class="section">
+                <h2>Euler–Poisson Integral</h2>
+                <div class="equation">
+                    $$\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}$$
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Normal Distribution</h2>
+                <div class="equation">
+                    $$f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$
+                </div>
+                
+                <div class="equation">
+                    $$\langle x \rangle = \mu, \quad \langle (x-\langle x\rangle)^2 \rangle = \sigma^2$$
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Fourier Transform</h2>
+                <div class="equation">
+                    \begin{align}
+                    \hat{f}(k) &= \int_{-\infty}^{\infty} e^{ikx} f(x)\, dx \\
+                    &= \frac{1}{\sqrt{2\pi\sigma^2}} \int_{-\infty}^{\infty} e^{-\frac{(x-\mu)^2}{2\sigma^2}} e^{-ikx} dx
+                    \end{align}
+                </div>
+                
+                <p>Let $x-\mu = t$:</p>
+                
+                <div class="equation">
+                    \begin{align}
+                    &= \frac{1}{\sqrt{2\pi\sigma^2}} e^{-ik\mu} \int_{-\infty}^{\infty} e^{-\frac{t^2}{2\sigma^2}} e^{-ikt} dt
+                    \end{align}
+                </div>
+                
+                <div class="equation">
+                    $$\int_{-\infty}^{\infty} e^{-ax^2 + bx} dx = \sqrt{\frac{\pi}{a}} e^{\frac{b^2}{4a}}$$
+                </div>
+                
+                <div class="equation">
+                    $$\hat{f}(k) = e^{-ik\mu} e^{-\frac{1}{2}\sigma^2 k^2}$$
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Moment Generating Function</h2>
+                <div class="equation">
+                    $$M(t) = \mathbb{E}[e^{tx}] = \int_{-\infty}^{\infty} e^{tx} f(x) dx$$
+                </div>
+                
+                <div class="equation">
+                    $$M(t) = e^{\mu t + \frac{\sigma^2 t^2}{2}}$$
+                </div>
+                
+                <div class="equation">
+                    $$\mathbb{E}[x^n] = \left.\frac{d^n M}{dt^n}\right|_{t=0}$$
+                </div>
+                
+                <div class="equation">
+                    \begin{align}
+                    \mathbb{E}[x] &= \left.\frac{dM}{dt}\right|_{t=0} = \mu e^{\mu t + \frac{\sigma^2 t^2}{2}} + t\sigma^2 e^{\mu t + \frac{\sigma^2 t^2}{2}} \\
+                    &= \mu
+                    \end{align}
+                </div>
+                
+                <div class="equation">
+                    $$\mathbb{E}[x^2] = \mu^2 + \sigma^2$$
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Gaussian Wave Packet</h2>
+                <p>A wave packet is a superposition of plane waves:</p>
+                
+                <div class="equation">
+                    $$\Psi(x,0) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} \phi(k) e^{ikx} dk$$
+                </div>
+                
+                <p>Take:</p>
+                
+                <div class="equation">
+                    $$\phi(k) = \phi_0 e^{-\frac{(k-k_0)^2}{4\sigma_k^2}} e^{i(k_0-k)x_0}$$
+                </div>
+                
+                <p>Normalization:</p>
+                
+                <div class="equation">
+                    $$\int |\phi(k)|^2 dk = 1$$
+                </div>
+                
+                <div class="equation">
+                    $$\phi_0 = \left(\frac{1}{2\pi\sigma_k^2}\right)^{1/4}$$
+                </div>
+                
+                <p><strong>Compute $\Psi(x,0)$</strong></p>
+                
+                <p>Let $k-k_0 = t$</p>
+                
+                <div class="equation">
+                    \begin{align}
+                    \Psi(x,0) &= \frac{\phi_0}{\sqrt{2\pi}} \int_{-\infty}^{\infty} e^{-\frac{t^2}{4\sigma_k^2}} e^{-itx_0} e^{i(t+k_0)x} dt \\
+                    &= \frac{\phi_0}{\sqrt{2\pi}} e^{ik_0 x} \int_{-\infty}^{\infty} e^{-\frac{t^2}{4\sigma_k^2}} e^{it(x-x_0)} dt
+                    \end{align}
+                </div>
+                
+                <div class="equation">
+                    \begin{equation}
+                    = \frac{\phi_0}{\sqrt{2\pi}} e^{ik_0 x} \sqrt{4\pi\sigma_k^2} e^{-\sigma_k^2 (x-x_0)^2}
+                    \end{equation}
+                </div>
+                
+                <div class="equation">
+                    \begin{equation}
+                    = A_0 e^{-\sigma_k^2 (x-x_0)^2} e^{ik_0 x}
+                    \end{equation}
+                </div>
+                
+                <div class="equation">
+                    \begin{equation}
+                    A_0 = \left(\frac{2\sigma_k^2}{\pi}\right)^{1/4}
+                    \end{equation}
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Normalization in $x$-space</h2>
+                <div class="equation">
+                    \begin{equation}
+                    \int |\Psi(x,0)|^2 dx = |A_0|^2 \int e^{-2\sigma_k^2 (x-x_0)^2} dx = 1
+                    \end{equation}
+                </div>
+                
+                <div class="equation">
+                    \begin{equation}
+                    |A_0|^2 \sqrt{\frac{\pi}{2\sigma_k^2}} = 1
+                    \end{equation}
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Symbolic Change</h2>
+                <div class="equation">
+                    \begin{equation}
+                    p = \hbar k
+                    \end{equation}
+                </div>
+                
+                <div class="equation">
+                    \begin{equation}
+                    \sigma_p = \hbar \sigma_k \quad \Rightarrow \quad \sigma_k \sigma_x = \frac{1}{2}
+                    \end{equation}
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Probability Distributions</h2>
+                <div class="equation">
+                    \begin{equation}
+                    P(x) = |\Psi(x)|^2 = \frac{1}{\sqrt{2\pi\sigma_x^2}} e^{-\frac{(x-x_0)^2}{2\sigma_x^2}}
+                    \end{equation}
+                </div>
+                
+                <div class="equation">
+                    \begin{equation}
+                    P(k) = |\phi(k)|^2 = \frac{1}{\sqrt{2\pi\sigma_k^2}} e^{-\frac{(k-k_0)^2}{2\sigma_k^2}}
+                    \end{equation}
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Uncertainty</h2>
+                <div class="equation">
+                    \begin{equation}
+                    \langle x \rangle = x_0, \quad (\Delta x)^2 = \sigma_x^2
+                    \end{equation}
+                </div>
+                
+                <div class="equation">
+                    \begin{equation}
+                    \langle k \rangle = k_0, \quad (\Delta k)^2 = \sigma_k^2
+                    \end{equation}
+                </div>
+                
+                <div class="equation">
+                    \begin{equation}
+                    (\Delta x)^2 (\Delta p)^2 = \hbar^2 \sigma_x^2 \sigma_k^2 = \frac{\hbar^2}{4}
+                    \end{equation}
+                </div>
+                
+                <div class="equation">
+                    \begin{equation}
+                    \Delta x \Delta p = \frac{\hbar}{2}
+                    \end{equation}
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Expectation Values from $\Psi(x)$</h2>
+                <div class="equation">
+                    \begin{equation}
+                    \Psi(x,0) = \frac{1}{(2\pi\sigma_x^2)^{1/4}} e^{-\frac{(x-x_0)^2}{4\sigma_x^2}} e^{ik_0 x}
+                    \end{equation}
+                </div>
+                
+                <div class="equation">
+                    \begin{equation}
+                    \frac{\partial \Psi}{\partial x} = \left(ik_0 - \frac{x-x_0}{2\sigma_x^2}\right)\Psi
+                    \end{equation}
+                </div>
+                
+                <div class="equation">
+                    \begin{equation}
+                    \langle p \rangle = -i\hbar \int \Psi^* \frac{\partial \Psi}{\partial x} dx = \hbar k_0
+                    \end{equation}
+                </div>
+                
+                <div class="equation">
+                    \begin{equation}
+                    \langle p^2 \rangle = \hbar^2 \left(k_0^2 + \frac{1}{4\sigma_x^2}\right)
+                    \end{equation}
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Time Evolution</h2>
+                <div class="equation">
+                    \begin{equation}
+                    H = \frac{p^2}{2m} = \frac{\hbar^2 k^2}{2m}
+                    \end{equation}
+                </div>
+                
+                <div class="equation">
+                    \begin{equation}
+                    \Psi(x,t) = \frac{1}{\sqrt{2\pi}} \int \phi(k) e^{ikx} e^{-i\hbar k^2 t / 2m} dk
+                    \end{equation}
+                </div>
+                
+                <p>Define:</p>
+                
+                <div class="equation">
+                    \begin{equation}
+                    a = \frac{1}{4\sigma_k^2} + \frac{i\hbar t}{2m}
+                    \end{equation}
+                </div>
+                
+                <div class="equation">
+                    \begin{equation}
+                    b = \frac{k_0}{2\sigma_k^2} + i(x-x_0)
+                    \end{equation}
+                </div>
+                
+                <div class="equation">
+                    \begin{equation}
+                    \int e^{-a k^2 + bk} dk = \sqrt{\frac{\pi}{a}} e^{b^2 / 4a}
+                    \end{equation}
+                </div>
+                
+                <p>Final:</p>
+                
+                <div class="equation">
+                    \begin{equation}
+                    \Psi(x,t) = \left(\frac{1}{2\pi\sigma_x^2}\right)^{1/4} \frac{\sigma_x}{\sigma_x(t)} \exp\left[-\frac{(x-x_0)^2}{4\sigma_x^2(t)} + ik_0 x \right]
+                    \end{equation}
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Probability Density Evolution</h2>
+                <div class="equation">
+                    \begin{equation}
+                    P(x,t) = |\Psi(x,t)|^2 = \frac{1}{\sqrt{2\pi}\sigma_x(t)} e^{-\frac{(x-x_0)^2}{2|\sigma_x(t)|^2}}
+                    \end{equation}
+                </div>
+                
+                <p>Special case:</p>
+                
+                <div class="equation">
+                    \begin{equation}
+                    x_0 = 0, \quad k_0 = 0
+                    \end{equation}
+                </div>
+                
+                <div class="equation">
+                    \begin{equation}
+                    P(x,t) = \frac{1}{\sqrt{2\pi}\sigma_x(t)} e^{-\frac{x^2}{2|\sigma_x(t)|^2}}
+                    \end{equation}
+                </div>
+            </div>
+            
+            <hr>
+            
+            <div class="note">
+                <strong>📐 Physics Note:</strong> These equations describe Gaussian functions and their fundamental role in quantum mechanics, particularly in wave packet dynamics, the uncertainty principle, and the time evolution of free particles.
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Generated from LaTeX source | Rendered with MathJax</p>
+            <p><small>Gaussian Functions - Quantum Mechanics & Probability Theory</small></p>
+        </div>
+    </div>
 </body>
 </html>
